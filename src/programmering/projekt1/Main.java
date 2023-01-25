@@ -22,6 +22,7 @@ public class Main {
         List<Consumable> consumables = new ArrayList<>();
         List<Key> keys = new ArrayList<>();
 
+        
         while (map) {
             System.out.println("===========");
             position.look();
@@ -35,6 +36,10 @@ public class Main {
             switch (choice) {
                 case 1 -> {
                     position = position.leave(keys);
+                    if (position.hasMonster()) {
+                        map = false;
+                        fight = true;
+                    }
 
                 }
 
@@ -88,8 +93,31 @@ public class Main {
 
         }
 
+                int playerHP = 10;
+        while(fight = true){
+            int monsters = position.mobs.size();
+            boolean turn = true;
+            if (monsters >= 1){
+                if (turn){
+                    System.out.println("What action do you want to take");
+                    System.out.println("1. attack");
+                    System.out.println("2. item");
+                    System.out.println("3. info");
+                    var choice = scanner.nextInt();
+                    switch(choice){
+                        case 1 -> {
+                            
+                        }
+                        case 2 -> {
+                            
+                        }
+                        case 3 -> {
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
-    private List<Weapon> weapons;
-    private List<Consumable> consumables;
 
 }
