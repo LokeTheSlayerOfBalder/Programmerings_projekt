@@ -7,12 +7,47 @@ import java.util.Scanner;
 public class Main {
 
     public static boolean map = true;
-    public static boolean fight = false;
     public static boolean shop = false;
+    public static Scanner scanner = new Scanner(System.in);
+
+    public static boolean fight(Room position, List<Weapon> weapons, List<Consumable> consumables, int playerHP) {
+
+        while (true) {
+            int monsters = position.mobs.size();
+            boolean turn = true;
+            if (monsters >= 1) {
+                if (turn) {
+                    System.out.println("What action do you want to take");
+                    System.out.println("1. attack");
+                    System.out.println("2. item");
+                    System.out.println("3. info");
+                    var choice = scanner.nextInt();
+                    switch (choice) {
+                        case 1 -> {
+
+                        }
+                        case 2 -> {
+
+                        }
+                        case 3 -> {
+
+                        }
+                    }
+                }
+            }
+            if (playerHP <= 0) {
+                System.out.println("You died");
+                return false; // You are dead. skriv ut det
+            }
+            if (position.mobs.size() == 0) {
+                return true; // Winning. Stoppa in eventuella vapen och cunsumables som monstren hade i weapons och consumables
+
+            }
+        }
+
+    }
 
     public static void main(String[] args) {
-
-        var scanner = new Scanner(System.in);
 
         var myMap = new Map();
 
@@ -22,7 +57,8 @@ public class Main {
         List<Consumable> consumables = new ArrayList<>();
         List<Key> keys = new ArrayList<>();
 
-        
+        int playerHP = 10;
+
         while (map) {
             System.out.println("===========");
             position.look();
@@ -37,8 +73,7 @@ public class Main {
                 case 1 -> {
                     position = position.leave(keys);
                     if (position.hasMonster()) {
-                        map = false;
-                        fight = true;
+                        fight(position, weapons, consumables, playerHP);
                     }
 
                 }
@@ -93,31 +128,6 @@ public class Main {
 
         }
 
-                int playerHP = 10;
-        while(fight = true){
-            int monsters = position.mobs.size();
-            boolean turn = true;
-            if (monsters >= 1){
-                if (turn){
-                    System.out.println("What action do you want to take");
-                    System.out.println("1. attack");
-                    System.out.println("2. item");
-                    System.out.println("3. info");
-                    var choice = scanner.nextInt();
-                    switch(choice){
-                        case 1 -> {
-                            
-                        }
-                        case 2 -> {
-                            
-                        }
-                        case 3 -> {
-                            
-                        }
-                    }
-                }
-            }
-        }
     }
 
 }
