@@ -95,8 +95,6 @@ public class Map {
         this.rooms.get(3).weapons.add(magicSword);
         var meatStick = new Weapon("Axels schlong", "It'r quite small", 0, 0);
         this.rooms.get(2).weapons.add(meatStick);
-        var magicPotion = new Consumable("pissjar", "A jar of magic piss... i think", 0, true, 3);
-        this.rooms.get(3).consumables.add(magicPotion);
         var superWeapon = new Weapon("Excalibur", "This mighty sword eminates powerfull energy.", 8, 0);
         this.rooms.get(13).weapons.add(superWeapon);
         
@@ -112,7 +110,8 @@ public class Map {
         this.rooms.get(6).mob = secondMonster;
         this.rooms.get(6).gold = 50;
         var fallenAngel = new Mob("Hephestus the fallen", "This is the fallen angel the breifing warned me about.", 13, 4);
-
+        this.rooms.get(12).mob = fallenAngel;
+        var cultistLeader = new Mob("Jeffrey", "The leader of the cult. The one who caused all of this heresy and mayhem", 300, 200);
         var bigSword = new Weapon("Greatsword", "Made out of Great iron. Hence the name Greatsword", 4, 50);
         this.shop.shopWeapons.add(bigSword);
         var uselessSpoon = new Weapon("Spoon", "An old rusty spoon.", 1, 25);
@@ -129,6 +128,10 @@ public class Map {
         this.shop.shopConsumables.add(steroid);
         var weaknessPotion = new Consumable("Weakness", "It literally reduces your AD. Don't use it.", 1, false, 11);
         this.shop.shopConsumables.add(weaknessPotion);
+        var magicPotion = new Consumable("pissjar", "A jar of magic piss... i think", 0, true, 3);
+        this.rooms.get(3).consumables.add(magicPotion);
+        var superHealth = new Consumable("Ironskin potion", "A potion that makes your skin hard as iron.", 0, true, 1000);
+        this.rooms.get(13).consumables.add(superHealth);
         
 
     }
