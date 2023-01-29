@@ -1,6 +1,6 @@
 package programmering.projekt1;
 
-class Key {
+public class Key {
     public String name;
     public String description;
 
