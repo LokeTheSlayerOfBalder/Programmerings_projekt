@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import programmering.projekt1.Map.DIRECTION;
-import programmering.projekt1.Main;
 
 public class Room {
 
@@ -15,7 +14,8 @@ public class Room {
     public List<Weapon> weapons = new ArrayList<>();
     public List<Consumable> consumables = new ArrayList<>();
     public List<Key> keys = new ArrayList<>();
-    public List<Mob> mobs = new ArrayList<>();
+    public int gold = 0;
+    public Mob mob;
 
     public Room(String name, String description) {
         this.name = name;
@@ -30,7 +30,7 @@ public class Room {
     }
 
     public void look() {
-        System.out.println("You are in " + this.name);
+        System.out.println(this.name);
         System.out.println(this.description);
     }
 
@@ -43,9 +43,11 @@ public class Room {
 
                 }
             }
-            System.out.println(choiceMax++ + ". Cancel");
-
+            System.out.println(choiceMax + ". Cancel");
+            System.out.println("===========");
             var choice = scanner.nextInt();
+            System.out.println("===========");
+
 
             if (choice == choiceMax) {
                 return this;
@@ -63,39 +65,63 @@ public class Room {
     }
 
     public void searchWeapon(List<Weapon> weapons) {
-        for (Weapon weapon : this.weapons) {
-            System.out.println(" ");
-            System.out.println("You have found " + weapon.name + ". It has a damage stat of: " + weapon.damage);
-            System.out.println(weapon.description);
-            weapons.add(weapon);
+        if (this.weapons.size() > 0) {
+            System.out.println("You have found weapon/s");
+            for (Weapon weapon : this.weapons) {
+                System.out.println(" ");
+                System.out.println("You have found " + weapon.name + ". It has a damage stat of: " + weapon.damage);
+                System.out.println(weapon.description);
+                weapons.add(weapon);
 
+            }
+            this.weapons.clear();
+        } else {
+            System.out.println("You found no weapons.");
         }
-        this.weapons.clear();
     }
 
     public void searchConsumable(List<Consumable> consumables) {
-        for (Consumable consumable : this.consumables) {
-            System.out.println(" ");
-            System.out.println("You have found " + consumable.name);
-            System.out.println(consumable.description);
+        if (this.consumables.size() > 0) {
+            System.out.println("You have found item/s");
+            for (Consumable consumable : this.consumables) {
+                System.out.println(" ");
+                System.out.println("You have found " + consumable.name);
+                System.out.println(consumable.description);
+            }
+            this.consumables.clear();
+
+        } else {
+            System.out.println("You found no items.");
         }
-        this.consumables.clear();
     }
 
     public void searchKey(List<Key> keys) {
-        for (Key key : this.keys) {
-            System.out.println(" ");
-            System.out.println("You have found " + key.name);
-            System.out.println(key.description);
-            System.out.println("I wonder wich door it can open");
+        if (this.keys.size() > 0) {
+            System.out.println("You have found key/s");
+            for (Key key : this.keys) {
+                System.out.println(" ");
+                System.out.println("You have found " + key.name + ". It's a key.");
+                System.out.println(key.description);
+                System.out.println("I wonder wich door it can open");
+            }
+            this.keys.clear();
+        } else {
+            System.out.println("You found no keys");
         }
     }
 
-    public void Monster() {
-        var i = this.mobs.size();
-        if (i > 0) {
-            Main.map = false;
+    public int SearchGold() {
+        if (gold > 0) {
+            System.out.println("You have found " + gold + " gold.");
+        } else {
+            System.out.println("You found no gold.");
         }
+        gold = 0;
+        return gold;
+    }
+
+    public boolean hasMonster() {
+        return this.mob != null;
     }
 
 }
