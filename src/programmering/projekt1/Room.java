@@ -87,6 +87,7 @@ public class Room {
                 System.out.println(" ");
                 System.out.println("You have found " + consumable.name);
                 System.out.println(consumable.description);
+                consumables.add(consumable);
             }
             this.consumables.clear();
 
@@ -103,6 +104,7 @@ public class Room {
                 System.out.println("You have found " + key.name + ". It's a key.");
                 System.out.println(key.description);
                 System.out.println("I wonder wich door it can open");
+                keys.add(key);
             }
             this.keys.clear();
         } else {
