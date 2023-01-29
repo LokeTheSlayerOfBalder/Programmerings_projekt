@@ -13,6 +13,8 @@ public class Door extends Connection {
             return super.moveThrough(from, keys);
         }
         System.out.println("You need a key to open this door");
+        System.out.println("===========");
+
         return from;
     }
 }
