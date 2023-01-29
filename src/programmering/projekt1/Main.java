@@ -13,10 +13,13 @@ public class Main {
     public static boolean fight(Room position, List<Weapon> weapons, List<Consumable> consumables, int playerHP) {
 
         while (true) {
-            int monsters = position.mobs.size();
+            boolean monster = position.hasMonster();
             boolean turn = true;
-            if (monsters >= 1) {
+            if (monster) {
                 if (turn) {
+                    System.out.println("A monster stands in your way. You need to kill it to proceed");
+                    System.out.println("You have " + playerHP + " health");
+                    System.out.println("You are fighting " + position.mob.printInfo());
                     System.out.println("What action do you want to take");
                     System.out.println("1. attack");
                     System.out.println("2. item");
@@ -24,25 +27,58 @@ public class Main {
                     var choice = scanner.nextInt();
                     switch (choice) {
                         case 1 -> {
+                            System.out.println("You chose to attack");
+                            System.out.println("Choose your weapon!!!");
+                            for (int y = 0; y < weapons.size(); y++) {
+                                String weaponName = weapons.get(y).getName();
+                                int weaponDamage = weapons.get(y).getDmg();
+                                System.out.println((y + 1) + ". " + weaponName + ". It deals " + weaponDamage + " damage");
+                            }
+
+                            int weaponChoice;
+                            do {
+                                weaponChoice = scanner.nextInt();
+
+                            } while (weaponChoice < 1 || weaponChoice > (weapons.size() + 1));
+
+                            position.mob.hp = position.mob.hp - weapons.get(weaponChoice).getDmg();
+
+                            if (position.mob.hp > 0) {
+                                System.out.println(position.mob.name +" is dead!");
+                                turn = false;
+                                position.mob = null;
+                            }
 
                         }
                         case 2 -> {
-
+                            for (int y = 0; y < consumables.size(); y++) {
+                                String itemName = consumables.get(y).getName();
+                                System.out.println((y + 1) + ". " + itemName + ".");
+                            }
                         }
                         case 3 -> {
-
+                            position.mob.printInfo();
                         }
                     }
+
+                } else {
+                    playerHP = playerHP - position.mob.ap;
+
+                    if (playerHP > 0) {
+                        turn = true;
+                    }
+                }
+                if (playerHP <= 0) {
+                    System.out.println("You died");
+                    return false; // You are dead. skriv ut det
+                }
+                if (position.mob == null) {
+                    System.out.println("All the monsters have perished. You may now pass.");
+                    return true; // Winning. Stoppa in eventuella vapen och cunsumables som monstren hade i weapons och consumables
+
                 }
             }
-            if (playerHP <= 0) {
-                System.out.println("You died");
-                return false; // You are dead. skriv ut det
-            }
-            if (position.mobs.size() == 0) {
-                return true; // Winning. Stoppa in eventuella vapen och cunsumables som monstren hade i weapons och consumables
 
-            }
         }
 
     }
@@ -50,12 +86,15 @@ public class Main {
     public static void main(String[] args) {
 
         var myMap = new Map();
-
         var position = myMap.rooms.get(0);
 
         List<Weapon> weapons = new ArrayList<>();
         List<Consumable> consumables = new ArrayList<>();
         List<Key> keys = new ArrayList<>();
+        int gold = 0;
+
+        Weapon fist = new Weapon("Fist", "It's your fist. Sure to hurt your hand as much as it hurts whatever you're punching", 1, 0);
+        weapons.add(fist);
 
         int playerHP = 10;
 
@@ -73,7 +112,9 @@ public class Main {
                 case 1 -> {
                     position = position.leave(keys);
                     if (position.hasMonster()) {
-                        fight(position, weapons, consumables, playerHP);
+                        if (!fight(position, weapons, consumables, playerHP)) {
+                            map = false;
+                        }
                     }
 
                 }
@@ -82,6 +123,7 @@ public class Main {
                     position.searchWeapon(weapons);
                     position.searchConsumable(consumables);
                     position.searchKey(keys);
+                    gold = position.SearchGold();
 
                 }
                 case 3 -> {
