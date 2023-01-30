@@ -121,8 +121,10 @@ public class Main {
 
         System.out.println("The game will ask you what you want to do by printing out alternatives such as attack, leave, shop, or items.");
         System.out.println("These alternatives will have a corresponding number. Enter one of these number to preform this action.");
-
         System.out.println("Welcome to the game. As you enter you will need to explore and battle through this abandoned house.");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
         System.out.println("Years before these grounds were subject to many satanic rituals leaving the lands haunted by inholy beings.");
         System.out.println("You have been sent here by the Anti Satatnic Situations Federation Central to Korea (A.S.S.F.C.K) to asses and neutralise the unholy hellspawns");
         System.out.println("There have been reports of a fallen angel, a betrayer of god, guarding a powerfull relic. We suggest you find it.");
