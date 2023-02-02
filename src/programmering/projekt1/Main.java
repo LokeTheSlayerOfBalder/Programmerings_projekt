@@ -10,6 +10,24 @@ public class Main {
     public static boolean shop = false;
     public static Scanner scanner = new Scanner(System.in);
 
+    public static int scanInt() {
+        int choice = 0;
+        boolean success = false;
+        while (!success){
+            
+        try {
+            choice = scanner.nextInt();
+            success = true;
+        } catch (Exception e) {
+            System.out.println("===========");
+            System.out.println("You need to enter an integer corresponding to one of the alternatives");
+            scanner.next();
+        }
+
+        }
+        return choice;
+    }
+
     public static boolean fight(Room position, List<Weapon> weapons, List<Consumable> consumables, int playerHP) {
 
         int attackBuff = 0;
@@ -18,17 +36,17 @@ public class Main {
         while (true) {
             boolean monster = position.hasMonster();
             if (monster) {
-
-                if (turn) {
-                    System.out.println("===========");
                     System.out.println("A monster stands in your way. You need to kill it to proceed");
                     System.out.println("You have " + playerHP + " health");
                     System.out.println("You are fighting " + position.mob.printInfo());
+                if (turn) {
+                    System.out.println("===========");
+
                     System.out.println("What action do you want to take");
                     System.out.println("1. attack");
                     System.out.println("2. item");
                     System.out.println("3. info");
-                    var choice = scanner.nextInt();
+                    int choice = scanInt();
                     switch (choice) {
                         case 1 -> {
                             System.out.println("===========");
@@ -42,7 +60,7 @@ public class Main {
 
                             int weaponChoice;
                             do {
-                                weaponChoice = scanner.nextInt();
+                                weaponChoice = scanInt();
 
                             } while (weaponChoice < 1 || weaponChoice > weapons.size());
 
@@ -74,7 +92,7 @@ public class Main {
                             }
                             int itemChoice;
                             do {
-                                itemChoice = scanner.nextInt();
+                                itemChoice = scanInt();
                             } while (itemChoice < 1 || itemChoice > consumables.size());
 
                             if (consumables.get(itemChoice).healing == true) {
@@ -88,33 +106,32 @@ public class Main {
                         }
                     }
 
+                } else {
+                    playerHP = playerHP - position.mob.ap;
+                    System.out.println("===========");
+
+                    System.out.println("You take " + position.mob.ap + " damage.");
+                    System.out.println("You have " + playerHP + " health left.");
+                    System.out.println("===========");
+
+                    if (playerHP > 0) {
+                        System.out.println("You survived and you're ready to attack again!");
+                        turn = true;
+                    }
                 }
+                if (playerHP <= 0) {
+                    System.out.println("You died and have to start over (:<");
+                    map = false;
+                    return false; // You are dead. skriv ut det
+                }
+                if (position.mob == null) {
+                    System.out.println("All the monsters have perished. You may now pass.");
+                    return true; // Winning. Stoppa in eventuella vapen och cunsumables som monstren hade i weapons och consumables
 
-             else {
-                playerHP = playerHP - position.mob.ap;
-            System.out.println("===========");
-
-                System.out.println("You take " + position.mob.ap + " damage.");
-                System.out.println("You have " + playerHP + " health left.");
-                System.out.println("===========");
-
-                if (playerHP > 0) {
-                    turn = true;
                 }
             }
-            if (playerHP <= 0) {
-                System.out.println("You died");
-                map = false;
-                return false; // You are dead. skriv ut det
-            }
-            if (position.mob == null) {
-                System.out.println("All the monsters have perished. You may now pass.");
-                return true; // Winning. Stoppa in eventuella vapen och cunsumables som monstren hade i weapons och consumables
 
-            }
         }
-
-    }
     }
 
     public static void main(String[] args) {
@@ -152,7 +169,7 @@ public class Main {
             System.out.println("4. Shop");
             System.out.println("===========");
 
-            var choice = scanner.nextInt();
+            var choice = scanInt();
 
             System.out.println("===========");
 
@@ -182,7 +199,7 @@ public class Main {
                     System.out.println("3. Keys");
                     System.out.println("4. Back");
                     System.out.println("===========");
-                    choice = scanner.nextInt();
+                    choice = scanInt();
 
                     switch (choice) {
                         case 1 -> {
