@@ -2,7 +2,6 @@ package programmering.projekt1;
 
 import java.util.ArrayList;
 import java.util.List;
-import static programmering.projekt1.Main.scanner;
 
 public class Shop {
 
@@ -17,7 +16,7 @@ public class Shop {
         System.out.println("2. Potions");
         System.out.println("3. Leave");
         int cost = 0;
-        int choice = scanner.nextInt();
+        int choice = Main.scanInt();
 
         switch (choice) {
             case 1 -> {
@@ -28,7 +27,7 @@ public class Shop {
                 System.out.println(shopWeapons.size() + 1 + ". Leave");
                 int weaponChoice;
                 do {
-                    weaponChoice = scanner.nextInt();
+                    weaponChoice = Main.scanInt();
                 } while (weaponChoice < 1 || weaponChoice > (shopWeapons.size() + 1));
                 if (weaponChoice == shopWeapons.size() + 1) {
                     return 0;
@@ -55,7 +54,7 @@ public class Shop {
 
                 int consumableChoice;
                 do {
-                    consumableChoice = scanner.nextInt();
+                    consumableChoice = Main.scanInt();
                 } while (consumableChoice < 1 || consumableChoice > (shopConsumables.size() + 1));
                 if (consumableChoice == shopConsumables.size() + 1) {
                     return 0;
