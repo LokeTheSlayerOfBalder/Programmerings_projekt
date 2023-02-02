@@ -45,7 +45,7 @@ public class Room {
             }
             System.out.println(choiceMax + ". Cancel");
             System.out.println("===========");
-            var choice = scanner.nextInt();
+            var choice = Main.scanInt();
             System.out.println("===========");
 
 
